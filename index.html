@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Email & Password Validation</title>
+  <style>
+    
+body {
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* soft blue gradient */
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+    .form-container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #007bff;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      display: none;
+      margin-top: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Login Form</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input autocomplete="off" type="email" id="email" placeholder="Enter your email">
+        <div class="error" id="emailError">Please enter a valid email address.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+        <div class="error" id="passwordError">Password must be at least 6 characters.</div>
+      </div>
+
+      <button type="submit">Login</button>
+
+    </form>
+<div id="successMessage" style="text-align:center; margin-top:20px; color:green;"></div>
+  </div>
+  
+
+
+  <script>
+    const emailInput = document.querySelector("#email");
+    const passwordInput = document.querySelector("#password");
+    const emailError = document.querySelector("#emailError");
+    const passwordError = document.querySelector("#passwordError");
+    const form = document.querySelector("#loginForm");
+    const body = document.querySelector("body");
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^.{6,}$/;
+    emailInput.addEventListener("input", function () {
+      if (!emailRegex.test(emailInput.value.trim())) {
+        emailError.style.display = "inline";
+      } else {
+        emailError.style.display = "none";
+      }
+    });
+    passwordInput.addEventListener("input", function () {
+      if (!passwordRegex.test(passwordInput.value.trim())) {
+        passwordError.style.display = "inline";
+      } else {
+        passwordError.style.display = "none";
+      }
+    });
+    // Prevent form submission and show alerts
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let valid = true;
+
+      if (!emailRegex.test(emailInput.value.trim())) {
+        emailError.style.display = "inline";
+        valid = false;
+      }
+
+      if (!passwordRegex.test(passwordInput.value.trim())) {
+        passwordError.style.display = "inline";
+        valid = false;
+      }
+
+    if (valid) {
+  document.getElementById("successMessage").textContent = "✔ Verification Complete";
+}
+    });
+  </script>
+
+</body>
+</html>
